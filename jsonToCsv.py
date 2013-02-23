@@ -198,7 +198,8 @@ relevant_fields = {
 }
 
 # Grab list of folders containing json files
-base_url = '/Github/data/crawl_topRepos/'
+base_url = './'
+#base_url = '/Github/data/crawl_topRepos/'
 #base_url = '/Github/data/crawl_rnd10kRepos/'
 files = [base_url + d for d in os.listdir(base_url)]
 folders = sorted(filter(os.path.isdir, files))
@@ -248,7 +249,7 @@ for folder in folders:
         # Json can be malformed
         try:
             json_data = json.load(f)
-        except:
+        except ValueError:
             skipped_files += 1
             continue
             
