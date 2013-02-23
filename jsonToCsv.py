@@ -225,8 +225,8 @@ for name in relevant_fields.keys():
 
         # Add fields for times
         if head[-3:] == '_AT':
-            header.append(head+'_TIME')
-            head += '_DATE'
+            header.append('TIME_' + head[:-3])
+            head = 'DATE_' + head[:-3]
 
         header.append(head)
 
