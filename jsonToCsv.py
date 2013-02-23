@@ -236,24 +236,32 @@ for folder in folders:
     print "Reading json from " + folder
     skipped_files = 0
     skipped_values = 0
+
     for json_file in file_list:
+        # Some files are missing
         try:
             f = open('%s/%s.json.txt' % (folder, json_file))
         except IOError as e:
-            if e.errno == 2:
-                skipped_files += 1
+            skipped_files += 1
             continue
-        json_data = json.load(f)
+
+        # Json can be malformed
+        try:
+            json_data = json.load(f)
+        except:
+            skipped_files += 1
+            continue
+            
         fields_to_read = relevant_fields[json_file]
 
         # Each item in the json list corresponds to a csv row
         for item in json_data:
             fields_read = []
             for fields in fields_to_read:
+                # Some users don't have certain fields
                 try:
                     val = item[fields[0]]
                 except KeyError:
-                    print "Warning: no value for " + fields[0]
                     val = None
 
                 # Only read first commit parent for now
@@ -297,7 +305,7 @@ for folder in folders:
             csv_files[json_file].writerow(fields_read)
 
     if skipped_files > 0:
-        print "## Warning: skipped %d missing files" % skipped_files
+        print "# Warning: skipped %d missing files" % skipped_files
     if skipped_values > 0:
         print "# Warning: skipped %d missing values" % skipped_values
 
