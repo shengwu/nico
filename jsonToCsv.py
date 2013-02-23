@@ -280,7 +280,7 @@ for folder in folders:
                     val = val.split('/')[-1]
 
                 # Separate dates and times for STATA
-                if fields[-3:] == '_at':
+                if fields[-1][-3:] == '_at':
                     # Handle null values
                     if not val:
                         fields_read.append(val)
