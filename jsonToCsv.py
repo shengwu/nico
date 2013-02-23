@@ -198,17 +198,24 @@ relevant_fields = {
 }
 
 # Grab list of folders containing json files
-base_url = './'
-#base_url = '/Github/data/crawl_topRepos/'
+base_url = '/Github/data/crawl_topRepos/'
 #base_url = '/Github/data/crawl_rnd10kRepos/'
 files = [base_url + d for d in os.listdir(base_url)]
 folders = sorted(filter(os.path.isdir, files))
+
+# Create directory in which to save files 
+save_dir = 'parsed_topRepos'
+#save_dir = 'parsed_rnd10kRepos'
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+
 print "Parsing JSON from %d folders found in %s" % (len(folders), base_url)
+print "Saving tab-delimited files in %s" % save_dir
 
 # Create tab-delimited files and store in dictionary
 # Use .csv file extension for convenience in STATA import
 csv_filenames = [x + '.csv' for x in relevant_fields.keys()]
-opened_files = [open(x, 'w') for x in csv_filenames]
+opened_files = [open(save_dir + '/' + x, 'w') for x in csv_filenames]
 csv_writers = [csv.writer(x, delimiter='\t') for x in opened_files]
 csv_files = dict(zip(relevant_fields.keys(), csv_writers))
 
