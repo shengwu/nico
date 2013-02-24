@@ -209,6 +209,12 @@ save_dir = 'parsed_topRepos'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
+# Write list of IDs
+ids_file = open("%s/repo_ids.txt" % save_dir, 'w')
+for i, folder in enumerate(folders):
+    ids_file.write("%d %s\n" % (i, folder.split('/')[-1]))
+ids_file.close()
+
 print "Parsing JSON from %d folders found in %s" % (len(folders), base_url)
 print "Saving tab-delimited files in %s" % save_dir
 
@@ -221,7 +227,7 @@ csv_files = dict(zip(relevant_fields.keys(), csv_writers))
 
 # Write csv headers
 for name in relevant_fields.keys():
-    header = []
+    header = ['REPO_ID']
     for fields in relevant_fields[name]:
         head = '_'.join(fields).upper()
 
@@ -240,8 +246,8 @@ for name in relevant_fields.keys():
 
     csv_files[name].writerow(header)
 
-for folder in folders:
-    print "Reading json from " + folder
+for repo_id, folder in enumerate(folders):
+    print "Reading json from %s" % folder
     skipped_files = 0
     skipped_values = 0
 
@@ -259,12 +265,12 @@ for folder in folders:
         except ValueError:
             skipped_files += 1
             continue
-            
+
         fields_to_read = relevant_fields[json_file]
 
         # Each item in the json list corresponds to a csv row
         for item in json_data:
-            fields_read = []
+            fields_read = [repo_id]
             for fields in fields_to_read:
                 # Some users don't have certain fields
                 try:
@@ -294,6 +300,7 @@ for folder in folders:
                         fields_read.append(val)
                         break
 
+                    # Timestamps are ISO 8601 but this works
                     tf = tf_from_rfc3339(val)
                     dt = datetime.datetime.utcfromtimestamp(tf)
 
