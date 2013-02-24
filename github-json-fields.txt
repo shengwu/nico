@@ -1,0 +1,314 @@
+Importing JSON into STATA for NICO
+==================================
+Each folder in crawl_topRepos and crawl_rnd10kRepos has the following files:
+
+- collaborators.json.txt
+- comments.json.txt
+- commits.json.txt
+- contributors.json.txt
+- forks.json.txt
+- issues.json.txt
+- issues_comments.json.txt
+- issues_events.json.txt
+- pulls.json.txt
+- pulls_comments.json.txt
+- stargazers.json.txt
+- subscribers.json.txt
+
+Collaborators,
+Contributors,
+Stargazers,
+Subscribers
+-------------
+- id
+- login
+- type
+- gravatar_id
+
+Comments ok
+--------
+- body
+- commit_id
+- created_at
+- id
+- line
+- path
+- position
+- updated_at
+- user id
+- user login
+
+['body']
+['commit_id']
+['created_at']
+['id']
+['line']
+['path']
+['position']
+['updated_at']
+['user', 'id']
+['user', 'login']
+
+Commits ok
+-------
+- author id
+- author login
+- commit author date
+- commit author email
+- commit author name
+- commit comment_count
+- commit committer date
+- commit committer email
+- commit committer name
+- commit message
+- commit tree sha
+- committer id
+- committer login
+- parents sha
+- sha
+
+['author', 'id']
+['author', 'login']
+['commit', 'author', 'date']
+['commit', 'author', 'email']
+['commit', 'author', 'name']
+['commit', 'comment_count']
+['commit', 'committer', 'date']
+['commit', 'committer', 'email']
+['commit', 'committer', 'name']
+['commit', 'message']
+['commit', 'tree', 'sha']
+['committer', 'id']
+['committer', 'login']
+['parents', 'sha']
+['sha']
+
+Forks #ok
+-----
+- created_at
+- description
+- fork (boolean, call it is_fork in csv)
+- forks
+- full_name
+- has_downloads
+- has_issues
+- has_wiki
+- homepage
+- id
+- language
+- name
+- open_issues
+- owner id
+- owner login
+- permissions admin
+- permissions pull
+- permissions push
+- private
+- pushed_at
+- size
+- updated_at
+- watchers
+
+['created_at']
+['description']
+['fork'] (boolean, call it is_fork in csv)
+['forks']
+['full_name']
+['has_downloads']
+['has_issues']
+['has_wiki']
+['homepage']
+['id']
+['language']
+['name']
+['open_issues']
+['owner', 'id']
+['owner', 'login']
+['permissions', 'admin']
+['permissions', 'pull']
+['permissions', 'push']
+['private']
+['pushed_at']
+['size']
+['updated_at']
+['watchers']
+
+Issues ok
+------
+- assignee
+- body
+- comments
+- closed_at
+- created_at
+- id
+- labels
+- milestone
+- number
+- state
+- title
+- updated_at
+- user id
+- user login
+
+
+['assignee']
+['body']
+['comments']
+['closed_at']
+['created_at']
+['id']
+['labels']
+['milestone']
+['number']
+['state']
+['title']
+['updated_at']
+['user', 'id']
+['user', 'login']
+
+
+Issues_comments
+---------------
+- body
+- created_at
+- id
+- issue_url
+- updated_at
+- user id
+- user login
+
+['body']
+['created_at']
+['id']
+['issue_url'] # convert to id by getting number after last slash
+['updated_at']
+['user', 'id']
+['user', 'login']
+
+
+Issues_events
+-------------
+- actor id
+- actor login
+- commit_id
+- created_at
+- event
+- id
+- issue id
+
+['actor', 'id']
+['actor', 'login']
+['commit_id']
+['created_at']
+['event']
+['id']
+['issue', 'id']
+
+
+Pulls
+-----
+- assignee id # check if non-null
+- assignee login
+- base ref
+- base repo id
+- base sha
+- base repo owner id
+- base repo owner login
+- base user id # check if non-null
+- base user login 
+- body
+- closed_at
+- created_at
+- head ref
+- head repo id
+- head sha
+- head repo owner id
+- head repo owner login
+- head user id # check if non-null
+- head user login
+- id
+- merge_commit_sha
+- merged_at
+- milestone description # check if non-null
+- milestone creator id
+- milestone creator login
+- milestone created_at
+- milestone title
+- milestone number
+- milestone due_on
+- milestone state
+- milestone closed_issues
+- milestone open_issues
+- milestone id
+- number
+- state
+- title
+- updated_at
+- user id
+- user login
+
+['assignee', 'id'] # check if assignee null
+['assignee', 'login']
+['base', 'ref']
+['base', 'repo', 'id']
+['base', 'sha']
+['base', 'repo', 'owner', 'id']
+['base', 'repo', 'owner', 'login']
+['base', 'user', 'id'] # check if base user null
+['base', 'user', 'login', '']
+['body']
+['closed_at']
+['created_at']
+['head', 'ref']
+['head', 'repo', 'id']
+['head', 'sha']
+['head', 'repo', 'owner', 'id']
+['head', 'repo', 'owner', 'login']
+['head', 'user', 'id'] # check if head user non-null
+['head', 'user', 'login']
+['id']
+['merge_commit_sha']
+['merged_at']
+['milestone', 'description'] # check if milestone null
+['milestone', 'creator', 'id']
+['milestone', 'creator', 'login']
+['milestone', 'created_at']
+['milestone', 'title']
+['milestone', 'number']
+['milestone', 'due_on']
+['milestone', 'state']
+['milestone', 'closed_issues']
+['milestone', 'open_issues']
+['milestone', 'id']
+['number']
+['state']
+['title']
+['updated_at']
+['user', 'id']
+['user', 'login']
+
+Pulls comments
+--------------
+- body
+- commit_id
+- created_at
+- id
+- original_commit_id
+- original_position
+- path
+- position
+- updated_at
+- user id
+- user login
+
+['body']
+['commit_id']
+['created_at']
+['id']
+['original_commit_id']
+['original_position']
+['path']
+['position']
+['updated_at']
+['user', 'id']
+['user', 'login']
