@@ -1,0 +1,74 @@
+replace commit_author_date = subinstr(commit_author_date, "T", " ", .)
+replace commit_author_date = subinstr(commit_author_date, "Z", "", .)
+replace commit_committer_date = subinstr(commit_author_date, "T", " ", .)
+replace commit_committer_date = subinstr(commit_author_date, "Z", "", .)
+gen time_authored = clock(commit_author_date, "YMDhms")
+gen time_committed = clock(commit_committer_date, "YMDhms")
+format time_authored %tcNN/DD/CCYY_HH:MM:SS
+format time_committed %tcNN/DD/CCYY_HH:MM:SS
+label variable time_authored "TIME_AUTHORED"
+label variable time_committed "TIME_COMMITTED"
+drop commit_author_date
+drop commit_committer_date
+
+gen time = clock(time_created, "hms")
+gen date = date(date_created, "DMY")
+drop time_created
+drop date_created
+gen double time_created = date*24*60*60*1000 + time
+drop date
+drop time
+format time_created %tcNN/DD/CCYY_HH:MM:SS
+label variable time_created "TIME_CREATED"
+
+gen time = clock(time_updated, "hms")
+gen date = date(date_updated, "DMY")
+drop time_updated
+drop date_updated
+gen double time_updated = date*24*60*60*1000 + time
+drop date
+drop time
+format time_updated %tcNN/DD/CCYY_HH:MM:SS
+label variable time_updated "TIME_UPDATED"
+
+gen time = clock(time_closed, "hms")
+gen date = date(date_closed, "DMY")
+drop time_closed
+drop date_closed
+gen double time_closed = date*24*60*60*1000 + time
+drop date
+drop time
+format time_closed %tcNN/DD/CCYY_HH:MM:SS
+label variable time_closed "TIME_CLOSED"
+
+
+gen time = clock(time_pushed, "hms")
+gen date = date(date_pushed, "DMY")
+drop time_pushed
+drop date_pushed
+gen double time_pushed = date*24*60*60*1000 + time
+drop date
+drop time
+format time_pushed %tcNN/DD/CCYY_HH:MM:SS
+label variable time_pushed "TIME_PUSHED"
+
+gen time = clock(time_milestone_created, "hms")
+gen date = date(date_milestone_created, "DMY")
+drop time_milestone_created
+drop date_milestone_created
+gen double time_milestone_created = date*24*60*60*1000 + time
+drop date
+drop time
+format time_milestone_created %tcNN/DD/CCYY_HH:MM:SS
+label variable time_milestone_created "TIME_MILESTONE_CREATED"
+
+gen time = clock(time_merged, "hms")
+gen date = date(date_merged, "DMY")
+drop time_merged
+drop date_merged
+gen double time_merged = date*24*60*60*1000 + time
+drop date
+drop time
+format time_merged %tcNN/DD/CCYY_HH:MM:SS
+label variable time_merged "TIME_MERGED"
+
