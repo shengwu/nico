@@ -38,18 +38,12 @@ for keyword in keywords:
     # Retrieve and write daily_data
     daily_data = c.get_daily(keyword)
     for row in daily_data:
-        try:
-            daily_writer.writerow(row)
-        except ValueError:
-            print "Skipped a row when writing daily data"
+        daily_writer.writerow(row)
 
     # Retrieve and write weekly data
     weekly_data = c.get_all(keyword)
     for row in weekly_data:
-        try:
-            weekly_writer.writerow(row)
-        except ValueError:
-            print "Skipped a row when writing weekly data"
+        weekly_writer.writerow(row)
 
     daily_file.close()
     weekly_file.close()
